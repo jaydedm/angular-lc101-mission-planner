@@ -8,11 +8,11 @@
           item.mass + cargoMass <= maximumAllowedMass &&
           cargoHold.length < maxItems
         "
-        (click)="nearCapacity = addItem(item)"
         [disabled]="
           item.mass + cargoMass > maximumAllowedMass ||
-          cargoHold.length === maxItems
+          cargoHold.length >= maxItems
         "
+        (click)="nearCapacity = addItem(item)"
       >
         Add to Cargo Hold</button
       >{{ item.name }}, {{ item.mass }} kg
@@ -29,8 +29,10 @@
   </ol>
   <p>Mass in Hold: {{ cargoMass }} kg</p>
   <p [class.nearMaxMass]="nearCapacity">
-    Mass Budget Remaining: {{maximumAllowedMass - cargoMass}} kg
+    Mass Budget Remaining: {{ maximumAllowedMass - cargoMass }} kg
   </p>
   <!-- Add the "Empty Hold" button here. -->
-  <button (click)='cargoHold=[]; cargoMass=0; nearCapacity=false'>Empty Hold</button>
+  <button (click)="cargoHold = []; cargoMass = 0; nearCapacity = false">
+    Empty Hold
+  </button>
 </div>
